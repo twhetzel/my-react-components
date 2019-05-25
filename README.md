@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Description
+Build static components for use in the GWAS Deposition app while learning React and component hierarchy.
+
 ## Available Scripts
 
 In the project directory, you can run:
