@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import { AppBar, Toolbar } from '@material-ui/core';
+import SearchBar from './SearchBar';
+import PrimarySearchAppBar from './PrimarySearchAppBar';
 
 function App() {
   return (
-    <AppBar>
-      <Toolbar></Toolbar>
-    </AppBar>
+    <SearchBar />
+    // <PrimarySearchAppBar />
   );
 }
 
