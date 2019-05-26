@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import APIClient from '../apiClient'
 
 import SubmissionsTable from '../SubmissionsTable';
+import EnhancedTable from '../EnhancedTable';
 
 
 const styles = theme => ({
@@ -151,6 +152,8 @@ class Submissions extends React.Component {
                 </SwipeableViews> */}
 
                 <SubmissionsTable />
+
+                {/* <EnhancedTable /> */}
             </div>
         );
     }
