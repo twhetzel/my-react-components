@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
 import SearchBar from './SearchBar';
-import PrimarySearchAppBar from './PrimarySearchAppBar';
+// import PrimarySearchAppBar from './PrimarySearchAppBar';
+import Submissions from './Submissions';
 
 function App() {
   return (
-    <SearchBar />
-    // <PrimarySearchAppBar />
+    <React.Fragment>
+      <SearchBar />
+      {/* <PrimarySearchAppBar /> */}
+      <Submissions />
+    </React.Fragment>
   );
 }
 
