@@ -10,8 +10,12 @@ import Paper from '@material-ui/core/Paper';
 import APIClient from '../apiClient'
 import Container from '@material-ui/core/Container';
 
+import { withStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+
+// const useStyles = makeStyles(theme => ({
+// TODO: Check if 'styles' is being applied
+const styles = theme => ({
     root: {
         width: '100%',
         marginTop: theme.spacing(3),
@@ -20,27 +24,51 @@ const useStyles = makeStyles(theme => ({
     table: {
         minWidth: 650,
     },
-}));
+});
 
-// const classes = useStyles();
+const StyledTableHeaderCell = withStyles(theme => ({
+    head: {
+        backgroundColor: theme.palette.secondary.light,
+        color: theme.palette.common.white,
+        fontSize: 14,
+        textAlign: 'center',
+    },
+    body: {
+        fontSize: 14,
+    },
+}))(TableCell);
 
-function createData(pmid, title, file_valid_status, data_valid_status, curator) {
-    return { pmid, title, file_valid_status, data_valid_status, curator };
-}
+const StyledTableBodyCell = withStyles(theme => ({
+    body: {
+        fontSize: 14,
+        textAlign: 'center',
+    },
+}))(TableCell);
 
-const rows = [
-    createData('PMID:1234', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-    createData('PMID:5', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-    createData('PMID:6', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-    createData('PMID:7', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-    createData('PMID:8', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-    createData('PMID:8', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
-];
+const StyledTableRow = withStyles(theme => ({
+    root: {
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.tableRowHighlight.main,
+        },
+    },
+}))(TableRow);
+
+// function createData(pmid, title, file_valid_status, data_valid_status, curator) {
+//     return { pmid, title, file_valid_status, data_valid_status, curator };
+// }
+
+// const rows = [
+//     createData('PMID:1234', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+//     createData('PMID:5', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+//     createData('PMID:6', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+//     createData('PMID:7', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+//     createData('PMID:8', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+//     createData('PMID:8', 'Super GWAS paper', 'In Progress', 'In Progress', 'Test Curator'),
+// ];
 
 
 // function SubmissionsTable() {
 class SubmissionTable extends React.Component {
-    // const classes = useStyles();
 
     state = {
         value: 0,
@@ -57,8 +85,6 @@ class SubmissionTable extends React.Component {
         );
     }
 
-
-
     renderRepos = (repos) => {
         console.log(repos.allSubmissions)
 
@@ -66,30 +92,28 @@ class SubmissionTable extends React.Component {
 
         if (repos.allSubmissions !== undefined) {
             return (
-                // <Paper className={classes.root}>
-                <Paper>
-                    {/* <Table className={classes.table}> */}
-                    <Table>
+                <Paper className={styles.root}>
+                    <Table className={styles.table}>
                         <TableHead>
                             <TableRow>
-                                <TableCell>PMID</TableCell>
-                                <TableCell align="center">Title</TableCell>
-                                <TableCell align="center">File Validation Status</TableCell>
-                                <TableCell align="center">Data Validation Status</TableCell>
-                                <TableCell align="center">Curator</TableCell>
+                                <StyledTableHeaderCell>PMID</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Title</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>File Validation Status</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Data Validation Status</StyledTableHeaderCell>
+                                <StyledTableHeaderCell>Curator</StyledTableHeaderCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {repos.allSubmissions.map(row => (
-                                <TableRow key={row.id}>
-                                    <TableCell component="th" scope="row">
+                                <StyledTableRow key={row.id}>
+                                    <StyledTableBodyCell component="th" scope="row">
                                         {row.publication_id}
-                                    </TableCell>
-                                    <TableCell align="center">{row.publication_id}</TableCell>
-                                    <TableCell align="center">{row.is_valid_format}</TableCell>
-                                    <TableCell align="center">{row.is_valid_data}</TableCell>
-                                    <TableCell align="center">{row.user_id}</TableCell>
-                                </TableRow>
+                                    </StyledTableBodyCell>
+                                    <StyledTableBodyCell>{row.publication_id}</StyledTableBodyCell>
+                                    <StyledTableBodyCell>{row.is_valid_format}</StyledTableBodyCell>
+                                    <StyledTableBodyCell>{row.is_valid_data}</StyledTableBodyCell>
+                                    <StyledTableBodyCell>{row.user_id}</StyledTableBodyCell>
+                                </StyledTableRow>
                             ))}
                         </TableBody>
                     </Table>
@@ -109,4 +133,4 @@ class SubmissionTable extends React.Component {
     }
 }
 
-export default (SubmissionTable);
+export default withStyles(styles)(SubmissionTable);

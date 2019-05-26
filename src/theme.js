@@ -14,6 +14,9 @@ const theme = createMuiTheme({
             dark: '#1d2b7b',
             contrastText: '#000',
         },
+        tableRowHighlight: {
+            main: '#F0F0F0',
+        }
     },
 });
 
