@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import APIClient from '../apiClient'
-import { Container } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles(theme => ({
@@ -100,11 +100,11 @@ class SubmissionTable extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Grid style={{ margin: 20 }}>
                 <div>
                     {this.renderRepos(this.state.kudos)}
                 </div>
-            </Container>
+            </Grid>
         );
     }
 }
