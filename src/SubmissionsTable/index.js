@@ -12,6 +12,10 @@ import Container from '@material-ui/core/Container';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import SubmissionDetails from '../SubmissionDetails';
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
 
 // const useStyles = makeStyles(theme => ({
 // TODO: Check if 'styles' is being applied
@@ -69,11 +73,20 @@ const StyledTableRow = withStyles(theme => ({
 
 // function SubmissionsTable() {
 class SubmissionTable extends React.Component {
+    // constructor(props) {
+    //     super(props)
+    // this.state = { isAddTripState: false }
+    // this.state = { value: 0 }
+    // this.state = { repos: [] }
+    // this.state = { kudos: [] }
+    // }
 
     state = {
         value: 0,
         repos: [],
-        kudos: []
+        kudos: [],
+        isAddTripState: false,
+        submissionPMID: 0
     };
 
     async componentDidMount() {
@@ -87,8 +100,14 @@ class SubmissionTable extends React.Component {
 
     // TEST
     showSubmissionDetails = (Event) => {
-        const submission = Event.currentTarget.getAttribute('data-item');
-        console.log('Getting submission details page...', submission)
+        const submissionPMID = Event.currentTarget.getAttribute('data-item');
+        console.log('Getting submission details page...', submissionPMID)
+
+        this.setState({
+            ...this.state,
+            isAddTripState: true,
+            submissionPMID: submissionPMID
+        })
     }
 
     renderRepos = (repos) => {
@@ -113,7 +132,7 @@ class SubmissionTable extends React.Component {
                             {repos.allSubmissions.map(row => (
                                 <StyledTableRow key={row.id} data-item={row.publication_id} onClick={this.showSubmissionDetails}>
                                     <StyledTableBodyCell component="th" scope="row">
-                                        {row.publication_id}
+                                        <Link to={`/test/${row.publication_id}`} style={{ textDecoration: 'none' }}>{row.publication_id}</Link>
                                     </StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="ID">{row.publication_id}</StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="IVF">{row.is_valid_format}</StyledTableBodyCell>
@@ -130,11 +149,27 @@ class SubmissionTable extends React.Component {
 
     render() {
         return (
-            <Container style={{ marginTop: 20 }}>
-                <div>
-                    {this.renderRepos(this.state.kudos)}
-                </div>
-            </Container>
+            <Router>
+                <Container style={{ marginTop: 20 }}>
+                    <Route exact={true} path="/" render={() => (
+                        <div>
+                            {this.renderRepos(this.state.kudos)}
+                        </div>
+                    )} />
+
+                    <Route path="/test/:gistId" render={({ match }) => <SubmissionDetails submissionID={this.state.submissionPMID} />} />
+                </Container>
+            </Router>
+
+
+            // THIS WORKS
+            // <Container style={{ marginTop: 20 }}>
+            //     <div>
+            //         {this.renderRepos(this.state.kudos)}
+
+            //         {this.state.isAddTripState && <SubmissionDetails />}
+            //     </div>
+            // </Container>
         );
     }
 }
