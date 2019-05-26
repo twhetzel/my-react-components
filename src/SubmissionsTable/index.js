@@ -85,6 +85,12 @@ class SubmissionTable extends React.Component {
         );
     }
 
+    // TEST
+    showSubmissionDetails = (Event) => {
+        const submission = Event.currentTarget.getAttribute('data-item');
+        console.log('Getting submission details page...', submission)
+    }
+
     renderRepos = (repos) => {
         console.log(repos.allSubmissions)
 
@@ -105,14 +111,14 @@ class SubmissionTable extends React.Component {
                         </TableHead>
                         <TableBody>
                             {repos.allSubmissions.map(row => (
-                                <StyledTableRow key={row.id}>
+                                <StyledTableRow key={row.id} data-item={row.publication_id} onClick={this.showSubmissionDetails}>
                                     <StyledTableBodyCell component="th" scope="row">
                                         {row.publication_id}
                                     </StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.publication_id}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.is_valid_format}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.is_valid_data}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.user_id}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="ID">{row.publication_id}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVF">{row.is_valid_format}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVD">{row.is_valid_data}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="UserID">{row.user_id}</StyledTableBodyCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>

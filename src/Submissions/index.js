@@ -8,6 +8,7 @@ import APIClient from '../apiClient'
 
 import SubmissionsTable from '../SubmissionsTable';
 import EnhancedTable from '../EnhancedTable';
+import SubmissionDetails from '../SubmissionDetails';
 
 
 const styles = theme => ({
