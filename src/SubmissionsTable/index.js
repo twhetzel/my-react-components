@@ -78,13 +78,13 @@ class SubmissionTable extends React.Component {
     // this.state = { isAddTripState: false }
     // this.state = { value: 0 }
     // this.state = { repos: [] }
-    // this.state = { kudos: [] }
+    // this.state = { submissions: [] }
     // }
 
     state = {
         value: 0,
         repos: [],
-        kudos: [],
+        submissions: [],
         isAddTripState: false,
         submissionPMID: 0
     };
@@ -93,20 +93,20 @@ class SubmissionTable extends React.Component {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
         this.apiClient = new APIClient();
-        this.apiClient.getKudos().then((data) =>
-            this.setState({ ...this.state, kudos: data })
+        this.apiClient.getSubmissions().then((data) =>
+            this.setState({ ...this.state, submissions: data })
         );
     }
 
     // TEST
     showSubmissionDetails = (Event) => {
-        const submissionPMID = Event.currentTarget.getAttribute('data-item');
-        console.log('Getting submission details page...', submissionPMID)
+        const submissionID = Event.currentTarget.getAttribute('data-item');
+        console.log('Getting submission details page...', submissionID)
 
         this.setState({
             ...this.state,
             isAddTripState: true,
-            submissionPMID: submissionPMID
+            submissionID: submissionID
         })
     }
 
@@ -130,9 +130,9 @@ class SubmissionTable extends React.Component {
                         </TableHead>
                         <TableBody>
                             {repos.allSubmissions.map(row => (
-                                <StyledTableRow key={row.id} data-item={row.publication_id} onClick={this.showSubmissionDetails}>
+                                <StyledTableRow key={row.id} data-item={row.id} onClick={this.showSubmissionDetails}>
                                     <StyledTableBodyCell component="th" scope="row">
-                                        <Link to={`/test/${row.publication_id}`} style={{ textDecoration: 'none' }}>{row.publication_id}</Link>
+                                        <Link to={`/submission/${row.id}`} style={{ textDecoration: 'none' }}>{row.publication_id}</Link>
                                     </StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="ID">{row.publication_id}</StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="IVF">{row.is_valid_format}</StyledTableBodyCell>
@@ -153,11 +153,11 @@ class SubmissionTable extends React.Component {
                 <Container style={{ marginTop: 20 }}>
                     <Route exact={true} path="/" render={() => (
                         <div>
-                            {this.renderRepos(this.state.kudos)}
+                            {this.renderRepos(this.state.submissions)}
                         </div>
                     )} />
 
-                    <Route path="/test/:gistId" render={({ match }) => <SubmissionDetails submissionID={this.state.submissionPMID} />} />
+                    <Route path="/submission/:submissionId" render={({ match }) => <SubmissionDetails submissionID={this.state.submissionID} />} />
                 </Container>
             </Router>
 
@@ -165,7 +165,7 @@ class SubmissionTable extends React.Component {
             // THIS WORKS
             // <Container style={{ marginTop: 20 }}>
             //     <div>
-            //         {this.renderRepos(this.state.kudos)}
+            //         {this.renderRepos(this.state.submissions)}
 
             //         {this.state.isAddTripState && <SubmissionDetails />}
             //     </div>

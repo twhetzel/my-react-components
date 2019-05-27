@@ -13,14 +13,14 @@ class APIClient {
     }
 
     //  createKudo(repo) {
-    //    return this.perform('post', '/kudos', repo);
+    //    return this.perform('post', '/submissions', repo);
     //  }
 
     //  deleteKudo(repo) {
-    //    return this.perform('delete', `/kudos/${repo.id}`);
+    //    return this.perform('delete', `/submissions/${repo.id}`);
     //  }
 
-    getKudos() {
+    getSubmissions() {
         //    return this.perform('get', '/kudos');
         return this.perform('get', '/submissions');
     }
