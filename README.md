@@ -3,6 +3,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Description
 Build static components for use in the GWAS Deposition app while learning React and component hierarchy.
 
+## Dependencies
+```
+npm install @material-ui/core
+npm install --save material-ui-icons
+npm install axios
+npm install --save react-swipeable-views
+npm install react-router-dom@latest
+npm install prop-types --save
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
