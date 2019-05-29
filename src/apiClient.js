@@ -25,6 +25,10 @@ class APIClient {
         return this.perform('get', '/submissions');
     }
 
+    startFileValidation(file) {
+        return this.perform('post', '/startFileValidation/' + file + '/submission_id/' + 7878);
+    }
+
     async perform(method, resource, data) {
         return client({
             method,

@@ -3,6 +3,8 @@ import Dropzone from '../Dropzone'
 import Progress from '../Progress'
 import './upload.css'
 
+import APIClient from '../apiClient'
+
 class Upload extends Component {
     constructor(props) {
         super(props)
@@ -11,7 +13,8 @@ class Upload extends Component {
             files: [],
             uploading: false,
             uploadProgress: {},
-            successfullUploaded: false
+            successfullUploaded: false,
+            fileStatus: false
         };
 
         this.onFilesAdded = this.onFilesAdded.bind(this);
@@ -72,11 +75,27 @@ class Upload extends Component {
         const promises = [];
         this.state.files.forEach(file => {
             promises.push(this.sendRequest(file));
+            console.log('** FN: ' + file);
         });
+
         try {
-            await Promise.all(promises);
+            // ORIG
+            // await Promise.all(promises);
+
+            await Promise.all(promises).then(values => {
+                console.log(values);
+                // Start processing files
+                this.initiateFileValidation(values);
+            })
+
 
             this.setState({ successfullUploaded: true, uploading: false });
+
+            // TODO: Add call to Flask app to start file validation process
+            // Need to pass submission_id and fileName(?)
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+            // console.log('** Call startProcessingFile endpoint for: ');
+
         } catch (e) {
             // Not Production ready! Do some error handling here instead...
             this.setState({ successfullUploaded: true, uploading: false });
@@ -102,7 +121,8 @@ class Upload extends Component {
                 const copy = { ...this.state.uploadProgress };
                 copy[file.name] = { state: "done", percentage: 100 };
                 this.setState({ uploadProgress: copy });
-                resolve(req.response);
+                // resolve(req.response);
+                resolve(file.name);
             });
 
             req.upload.addEventListener("error", event => {
@@ -125,6 +145,16 @@ class Upload extends Component {
             req.send(formData);
         });
     }
+
+    // TEST
+    initiateFileValidation(file) {
+        console.log('** Files to process: ' + file);
+        this.apiClient = new APIClient();
+        this.apiClient.startFileValidation(file).then((data) =>
+            this.setState({ ...this.state, fileStatus: data })
+        );
+    }
+
 
     render() {
         return (
