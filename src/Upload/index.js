@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import Dropzone from '../Dropzone'
 import Progress from '../Progress'
 import './upload.css'
-
 import APIClient from '../apiClient'
 
 class Upload extends Component {
     constructor(props) {
         super(props)
+
+        console.log('**SID: ', this.props.sub_id)
 
         this.state = {
             files: [],
@@ -150,7 +151,7 @@ class Upload extends Component {
     initiateFileValidation(file) {
         console.log('** Files to process: ' + file);
         this.apiClient = new APIClient();
-        this.apiClient.startFileValidation(file).then((data) =>
+        this.apiClient.startFileValidation(file, this.props.sub_id).then((data) =>
             this.setState({ ...this.state, fileStatus: data })
         );
     }

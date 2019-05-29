@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link, withRouter, Redirect } from 'reac
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 // import './SubmissionDetails.css'
 import UploadComponent from '../UploadComponent';
+import Upload from '../Upload';
 
 const styles = theme => ({
     root: {
@@ -39,7 +40,8 @@ class SubmissionDetails extends React.Component {
                         SubmissionID: {this.props.submissionID}
                     </div>
                     <Button color="secondary" onClick={this._onButtonClick}>Select Upload Files</Button>
-                    {this.state.showComponent ? <UploadComponent /> : null}
+                    {/* {this.state.showComponent ? <UploadComponent /> : null} */}
+                    {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
                 </div>
             </Container>
         );
