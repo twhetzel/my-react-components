@@ -148,7 +148,7 @@ class Upload extends Component {
         });
     }
 
-    // TEST
+
     addFilename(file) {
         console.log('** Update submission with filename: ' + file.name);
         this.apiClient = new APIClient();
