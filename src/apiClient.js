@@ -25,6 +25,10 @@ class APIClient {
         return this.perform('get', '/submissions');
     }
 
+    addFilename(file, submission_id) {
+        return this.perform('post', '/updateSubmission/' + file + '/submission_id/' + submission_id);
+    }
+
     startFileValidation(file, submission_id) {
         return this.perform('post', '/startFileValidation/' + file + '/submission_id/' + submission_id);
     }

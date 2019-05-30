@@ -86,6 +86,7 @@ class Upload extends Component {
             await Promise.all(promises).then(values => {
                 console.log(values);
                 // Start processing files
+                this.addFilename(values);
                 this.initiateFileValidation(values);
             })
 
@@ -122,7 +123,7 @@ class Upload extends Component {
                 const copy = { ...this.state.uploadProgress };
                 copy[file.name] = { state: "done", percentage: 100 };
                 this.setState({ uploadProgress: copy });
-                // resolve(req.response);
+                // resolve(req.response); // ORIGINAL
                 resolve(file.name);
             });
 
@@ -148,6 +149,12 @@ class Upload extends Component {
     }
 
     // TEST
+    addFilename(file) {
+        console.log('** Update submission with filename: ' + file.name);
+        this.apiClient = new APIClient();
+        this.apiClient.addFilename(file, this.props.sub_id)
+    }
+
     initiateFileValidation(file) {
         console.log('** Files to process: ' + file);
         this.apiClient = new APIClient();
