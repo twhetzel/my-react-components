@@ -23,14 +23,45 @@ class SubmissionDetails extends React.Component {
         this.state = {
             showComponent: false,
         };
-        this._onButtonClick = this._onButtonClick.bind(this);
+        // this._onButtonClick = this._onButtonClick.bind(this);
+        // this.closeWindow = this.closeWindow.bind(this);
     }
 
-    _onButtonClick() {
-        this.setState({
-            showComponent: true,
-        });
+    // _onButtonClick() {
+    //     this.setState({
+    //         showComponent: true,
+    //     });
+    // }
+
+    // closeWindow() {
+    //     this.setState({
+    //         showComponent: false,
+    //     });
+    // }
+
+
+    renderActions() {
+        if (this.state.showComponent) {
+            return (
+                <button
+                    onClick={() =>
+                        this.setState({ showComponent: false })
+                    }>
+                    Close Window
+                    </button>
+            );
+        } else {
+            return (
+                <button
+                    onClick={() =>
+                        this.setState({ showComponent: true })
+                    }>
+                    Select Upload Files
+                </button>
+            );
+        }
     }
+
 
     render() {
         return (
@@ -39,9 +70,11 @@ class SubmissionDetails extends React.Component {
                     <div>
                         SubmissionID: {this.props.submissionID}
                     </div>
-                    <Button color="secondary" onClick={this._onButtonClick}>Select Upload Files</Button>
+                    {/* <Button color="secondary" onClick={this._onButtonClick}>Select Upload Files</Button> */}
                     {/* {this.state.showComponent ? <UploadComponent /> : null} */}
                     {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
+                    {/* <Button color="secondary" onClick={this.closeWindow}>Close File Upload Window</Button> */}
+                    <div>{this.renderActions()}</div>
                 </div>
             </Container>
         );
