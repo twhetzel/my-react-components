@@ -7,15 +7,29 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import UploadComponent from '../UploadComponent';
 import Upload from '../Upload';
 
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
+        marginTop: 24
     },
-    // downloadButton: {
-    //     background: theme.palette.secondary.light,
-    //     marginRight: theme.spacing(2),
-    // },
+    table: {
+        minWidth: 650,
+    },
 });
+
+function createData(pmid, title, is_file_valid, is_data_valid, curator) {
+    return { pmid, title, is_file_valid, is_data_valid, curator };
+}
+
+const rows = [
+    createData('PMID:1234', 'GWAS paper ...', 'Not started', 'Not started', 'Test Curator')
+]
 
 class SubmissionDetails extends React.Component {
     constructor(props) {
@@ -23,22 +37,7 @@ class SubmissionDetails extends React.Component {
         this.state = {
             showComponent: false,
         };
-        // this._onButtonClick = this._onButtonClick.bind(this);
-        // this.closeWindow = this.closeWindow.bind(this);
     }
-
-    // _onButtonClick() {
-    //     this.setState({
-    //         showComponent: true,
-    //     });
-    // }
-
-    // closeWindow() {
-    //     this.setState({
-    //         showComponent: false,
-    //     });
-    // }
-
 
     renderActions() {
         if (this.state.showComponent) {
@@ -65,21 +64,51 @@ class SubmissionDetails extends React.Component {
 
     render() {
         return (
-            <Container style={{ marginTop: 24 }}>
+            <div className={styles.root}>
                 <div>
+                    SubmissionID: {this.props.submissionID}
+                </div>
+                <Table className={styles.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>PMID</TableCell>
+                            <TableCell align="right">Title</TableCell>
+                            <TableCell align="right">File Validatation Status</TableCell>
+                            <TableCell align="right">Data Validation Status</TableCell>
+                            <TableCell align="right">Curator</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map(row => (
+                            <TableRow key={row.pmid}>
+                                <TableCell component="th" scope="row">
+                                    {row.pmid}
+                                </TableCell>
+                                <TableCell align="right">{row.title}</TableCell>
+                                <TableCell align="right">{row.is_file_valid}</TableCell>
+                                <TableCell align="right">{row.is_data_valid}</TableCell>
+                                <TableCell align="right">{row.curator}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+
+                {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
+                <div>{this.renderActions()}</div>
+
+
+                {/* <div>
                     <div>
                         SubmissionID: {this.props.submissionID}
                     </div>
-                    {/* <Button color="secondary" onClick={this._onButtonClick}>Select Upload Files</Button> */}
-                    {/* {this.state.showComponent ? <UploadComponent /> : null} */}
+                    <div>Another div field</div>
                     {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
-                    {/* <Button color="secondary" onClick={this.closeWindow}>Close File Upload Window</Button> */}
                     <div>{this.renderActions()}</div>
-                </div>
-            </Container>
+                </div> */}
+            </div>
         );
     }
 }
 
 
-export default SubmissionDetails;
+export default withStyles(styles)(SubmissionDetails);
