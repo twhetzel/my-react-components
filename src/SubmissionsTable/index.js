@@ -12,6 +12,10 @@ import Container from '@material-ui/core/Container';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import SubmissionDetails from '../SubmissionDetails';
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
 
 // const useStyles = makeStyles(theme => ({
 // TODO: Check if 'styles' is being applied
@@ -69,20 +73,41 @@ const StyledTableRow = withStyles(theme => ({
 
 // function SubmissionsTable() {
 class SubmissionTable extends React.Component {
+    // constructor(props) {
+    //     super(props)
+    // this.state = { isAddTripState: false }
+    // this.state = { value: 0 }
+    // this.state = { repos: [] }
+    // this.state = { submissions: [] }
+    // }
 
     state = {
         value: 0,
         repos: [],
-        kudos: []
+        submissions: [],
+        isAddTripState: false,
+        submissionPMID: 0
     };
 
     async componentDidMount() {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
         this.apiClient = new APIClient();
-        this.apiClient.getKudos().then((data) =>
-            this.setState({ ...this.state, kudos: data })
+        this.apiClient.getSubmissions().then((data) =>
+            this.setState({ ...this.state, submissions: data })
         );
+    }
+
+    // TEST
+    showSubmissionDetails = (Event) => {
+        const submissionID = Event.currentTarget.getAttribute('data-item');
+        console.log('Getting submission details page...', submissionID)
+
+        this.setState({
+            ...this.state,
+            isAddTripState: true,
+            submissionID: submissionID
+        })
     }
 
     renderRepos = (repos) => {
@@ -105,14 +130,14 @@ class SubmissionTable extends React.Component {
                         </TableHead>
                         <TableBody>
                             {repos.allSubmissions.map(row => (
-                                <StyledTableRow key={row.id}>
+                                <StyledTableRow key={row.id} data-item={row.id} onClick={this.showSubmissionDetails}>
                                     <StyledTableBodyCell component="th" scope="row">
-                                        {row.publication_id}
+                                        <Link to={`/submission/${row.id}`} style={{ textDecoration: 'none' }}>{row.publication_id}</Link>
                                     </StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.publication_id}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.is_valid_format}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.is_valid_data}</StyledTableBodyCell>
-                                    <StyledTableBodyCell>{row.user_id}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="ID">{row.publication_id}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVF">{row.is_valid_format.toString()}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVD">{row.is_valid_data.toString()}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="UserID">{row.user_id}</StyledTableBodyCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>
@@ -124,11 +149,27 @@ class SubmissionTable extends React.Component {
 
     render() {
         return (
-            <Container style={{ marginTop: 20 }}>
-                <div>
-                    {this.renderRepos(this.state.kudos)}
-                </div>
-            </Container>
+            <Router>
+                <Container style={{ marginTop: 20 }}>
+                    <Route exact={true} path="/" render={() => (
+                        <div>
+                            {this.renderRepos(this.state.submissions)}
+                        </div>
+                    )} />
+
+                    <Route path="/submission/:submissionId" render={({ match }) => <SubmissionDetails submissionID={this.state.submissionID} />} />
+                </Container>
+            </Router>
+
+
+            // THIS WORKS
+            // <Container style={{ marginTop: 20 }}>
+            //     <div>
+            //         {this.renderRepos(this.state.submissions)}
+
+            //         {this.state.isAddTripState && <SubmissionDetails />}
+            //     </div>
+            // </Container>
         );
     }
 }

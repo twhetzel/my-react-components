@@ -8,6 +8,7 @@ import APIClient from '../apiClient'
 
 import SubmissionsTable from '../SubmissionsTable';
 import EnhancedTable from '../EnhancedTable';
+import SubmissionDetails from '../SubmissionDetails';
 
 
 const styles = theme => ({
@@ -26,15 +27,15 @@ class Submissions extends React.Component {
     state = {
         value: 0,
         repos: [],
-        kudos: []
+        submissions: []
     };
 
     async componentDidMount() {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
         this.apiClient = new APIClient();
-        this.apiClient.getKudos().then((data) =>
-            this.setState({ ...this.state, kudos: data })
+        this.apiClient.getSubmissions().then((data) =>
+            this.setState({ ...this.state, submissions: data })
         );
     }
 
@@ -48,7 +49,7 @@ class Submissions extends React.Component {
 
     resetRepos = repos => this.setState({ ...this.state, repos })
 
-    isKudo = repo => this.state.kudos.find(r => r.id === repo.id)
+    isKudo = repo => this.state.submissions.find(r => r.id === repo.id)
     onKudo = (repo) => {
         this.updateBackend(repo);
     }
@@ -66,12 +67,12 @@ class Submissions extends React.Component {
         if (this.isKudo(repo)) {
             this.setState({
                 ...this.state,
-                kudos: this.state.kudos.filter(r => r.id !== repo.id)
+                submissions: this.state.submissions.filter(r => r.id !== repo.id)
             })
         } else {
             this.setState({
                 ...this.state,
-                kudos: [repo, ...this.state.kudos]
+                submissions: [repo, ...this.state.submissions]
             })
         }
     }
@@ -134,7 +135,7 @@ class Submissions extends React.Component {
                     textColor="primary"
                     variant="fullWidth"
                 >
-                    <Tab label="Kudos" />
+                    <Tab label="Submissions" />
                     <Tab label="Search" />
                 </Tabs>
 
@@ -144,7 +145,7 @@ class Submissions extends React.Component {
                     onChangeIndex={this.handleTabChangeIndex}
                 >
                     <Grid container spacing={16} style={{ padding: '20px 0' }}>
-                        {this.renderRepos(this.state.kudos)}
+                        {this.renderRepos(this.state.submissions)}
                     </Grid>
                     <Grid container spacing={16} style={{ padding: '20px 0' }}>
                         {this.renderRepos(this.state.repos)}

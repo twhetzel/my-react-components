@@ -13,16 +13,28 @@ class APIClient {
     }
 
     //  createKudo(repo) {
-    //    return this.perform('post', '/kudos', repo);
+    //    return this.perform('post', '/submissions', repo);
     //  }
 
     //  deleteKudo(repo) {
-    //    return this.perform('delete', `/kudos/${repo.id}`);
+    //    return this.perform('delete', `/submissions/${repo.id}`);
     //  }
 
-    getKudos() {
+    getSubmissions() {
         //    return this.perform('get', '/kudos');
         return this.perform('get', '/submissions');
+    }
+
+    getSubmission(submission_id) {
+        return this.perform('get', '/submission/' + submission_id);
+    }
+
+    addFilename(file, submission_id) {
+        return this.perform('post', '/updateSubmission/' + file + '/submission_id/' + submission_id);
+    }
+
+    startFileValidation(file, submission_id) {
+        return this.perform('post', '/startFileValidation/' + file + '/submission_id/' + submission_id);
     }
 
     async perform(method, resource, data) {
