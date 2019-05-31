@@ -135,8 +135,8 @@ class SubmissionTable extends React.Component {
                                         <Link to={`/submission/${row.id}`} style={{ textDecoration: 'none' }}>{row.publication_id}</Link>
                                     </StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="ID">{row.publication_id}</StyledTableBodyCell>
-                                    <StyledTableBodyCell data-title="IVF">{row.is_valid_format}</StyledTableBodyCell>
-                                    <StyledTableBodyCell data-title="IVD">{row.is_valid_data}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVF">{row.is_valid_format.toString()}</StyledTableBodyCell>
+                                    <StyledTableBodyCell data-title="IVD">{row.is_valid_data.toString()}</StyledTableBodyCell>
                                     <StyledTableBodyCell data-title="UserID">{row.user_id}</StyledTableBodyCell>
                                 </StyledTableRow>
                             ))}

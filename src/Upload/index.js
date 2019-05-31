@@ -90,13 +90,7 @@ class Upload extends Component {
                 this.initiateFileValidation(values);
             })
 
-
             this.setState({ successfullUploaded: true, uploading: false });
-
-            // TODO: Add call to Flask app to start file validation process
-            // Need to pass submission_id and fileName(?)
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-            // console.log('** Call startProcessingFile endpoint for: ');
 
         } catch (e) {
             // Not Production ready! Do some error handling here instead...
