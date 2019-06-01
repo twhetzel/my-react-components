@@ -13,6 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import ReactSVG from 'react-svg'
 
+import APIClient from '../apiClient';
+
 
 const useStyles = makeStyles(theme => ({
     grow: { // use "root" to have search bar displayed on right
@@ -102,6 +104,9 @@ function SearchBar() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    // TEST
+    const apiClient = new APIClient();
+
     const isMenuOpen = Boolean(anchorEl);
 
     function handleProfileMenuOpen(event) {
@@ -111,6 +116,17 @@ function SearchBar() {
     function handleMenuClose() {
         setAnchorEl(null);
     }
+
+    function downloadTemplate() {
+        console.log('Download button clicked!')
+        // this.apiClient = new APIClient();
+        apiClient.downloadTemplate();
+        //.then((data) =>
+        //     this.setState({ ...this.state, submissions: data })
+        // );
+        // window.open(response.file);
+    }
+
 
     const renderMenu = (
         <Menu
@@ -147,7 +163,7 @@ function SearchBar() {
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Button className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
+                        <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
                         <Button className={classes.loginButton} style={{ float: 'right' }}>Login</Button>
                         <IconButton
                             edge="end"
