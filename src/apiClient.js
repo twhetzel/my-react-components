@@ -60,7 +60,7 @@ class APIClient {
                 const link = document.createElement('a');
                 link.href = url;
                 // link.setAttribute('download', 'demoTemplate.pdf'); //or any other extension
-                link.setAttribute('download', 'demoTemplate.xls'); //or any other extension
+                link.setAttribute('download', 'template.xlsx'); //or any other extension
                 document.body.appendChild(link);
                 link.click();
             })
