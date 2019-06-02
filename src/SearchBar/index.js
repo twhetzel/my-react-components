@@ -104,7 +104,6 @@ function SearchBar() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    // TEST
     const apiClient = new APIClient();
 
     const isMenuOpen = Boolean(anchorEl);
@@ -118,13 +117,7 @@ function SearchBar() {
     }
 
     function downloadTemplate() {
-        console.log('Download button clicked!')
-        // this.apiClient = new APIClient();
         apiClient.downloadTemplate();
-        //.then((data) =>
-        //     this.setState({ ...this.state, submissions: data })
-        // );
-        // window.open(response.file);
     }
 
 
