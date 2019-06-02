@@ -1,10 +1,5 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
-import { Button } from '@material-ui/core';
-import { BrowserRouter as Router, Route, Link, withRouter, Redirect } from 'react-router-dom';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-// import './SubmissionDetails.css'
-import UploadComponent from '../UploadComponent';
+import { withStyles } from '@material-ui/core/styles';
 import Upload from '../Upload';
 
 import Table from '@material-ui/core/Table';
@@ -28,14 +23,6 @@ const styles = theme => ({
 const action = {
     marginTop: '20px'
 };
-
-// function createData(pmid, title, is_file_valid, is_data_valid, curator) {
-//     return { pmid, title, is_file_valid, is_data_valid, curator };
-// }
-
-// const rows = [
-//     createData('PMID:1234', 'GWAS paper ...', 'Not started', 'Not started', 'Test Curator')
-// ]
 
 class SubmissionDetails extends React.Component {
     constructor(props) {
@@ -63,7 +50,6 @@ class SubmissionDetails extends React.Component {
 
         if (repos.submission !== undefined) {
             return (
-                // <Paper className={styles.root}>
                 <Table className={styles.table}>
                     <TableHead>
                         <TableRow>
@@ -86,13 +72,9 @@ class SubmissionDetails extends React.Component {
                         ))}
                     </TableBody>
                 </Table>
-                // </Paper>
             );
         }
     }
-
-
-
 
     renderActions() {
         if (this.state.showComponent) {
@@ -125,46 +107,15 @@ class SubmissionDetails extends React.Component {
                 </div>
 
                 <div>
+                    Show publication details here...
+                </div>
+
+                <div>
                     {this.renderRepos(this.state.submission)}
                 </div>
 
-                {/* <Table className={styles.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>PMID</TableCell>
-                            <TableCell align="right">Title</TableCell>
-                            <TableCell align="right">File Validatation Status</TableCell>
-                            <TableCell align="right">Data Validation Status</TableCell>
-                            <TableCell align="right">Curator</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map(row => (
-                            <TableRow key={row.pmid}>
-                                <TableCell component="th" scope="row">
-                                    {row.pmid}
-                                </TableCell>
-                                <TableCell align="right">{row.title}</TableCell>
-                                <TableCell align="right">{row.is_file_valid}</TableCell>
-                                <TableCell align="right">{row.is_data_valid}</TableCell>
-                                <TableCell align="right">{row.curator}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table> */}
-
                 {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
                 <div style={action}>{this.renderActions()}</div>
-
-
-                {/* <div>
-                    <div>
-                        SubmissionID: {this.props.submissionID}
-                    </div>
-                    <div>Another div field</div>
-                    {this.state.showComponent ? <Upload sub_id={this.props.submissionID} /> : null}
-                    <div>{this.renderActions()}</div>
-                </div> */}
             </div>
         );
     }
