@@ -4,6 +4,8 @@ import Progress from '../Progress'
 import './upload.css'
 import APIClient from '../apiClient'
 
+const UPLOAD_TEMPLATE_URL = process.env.REACT_APP_TEMPLATE_UPLOAD_API;
+
 class Upload extends Component {
     constructor(props) {
         super(props)
@@ -129,15 +131,19 @@ class Upload extends Component {
             });
 
             const formData = new FormData();
-            formData.append("file", file, file.name);
+            // formData.append("file", file, file.name); // use with TW Flask /upload
+            formData.append("templateFile", file);
+            formData.append("fileName", file.name);
+            formData.append("submissionId", this.props.sub_id);
 
-            console.log("** FormData: ", file.name);
+            console.log("** Upload Filename: ", file.name);
 
             // Post file to Node server.js 
             // req.open("POST", "http://localhost:8000/upload");
 
             // Post file to Flask GWAS Deposition Service app
-            req.open("POST", "http://localhost:5000/uploader");
+            // req.open("POST", "http://localhost:5000/uploader");
+            req.open("POST", UPLOAD_TEMPLATE_URL);
             req.send(formData);
         });
     }
