@@ -6,11 +6,13 @@ import Submissions from './Submissions';
 
 function App() {
   return (
-    <React.Fragment>
+    <div className="App">
+      {/* <React.Fragment> */}
       <SearchBar />
       {/* <PrimarySearchAppBar /> */}
-      <Submissions />
-    </React.Fragment>
+      {/* <Submissions />
+    </React.Fragment> */}
+    </div>
   );
 }
 

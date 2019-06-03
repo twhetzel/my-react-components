@@ -15,6 +15,14 @@ import ReactSVG from 'react-svg'
 
 import APIClient from '../apiClient';
 
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+
+import SubmissionsTable from '../SubmissionsTable';
+import Submissions from '../Submissions';
+import TestComponent from '../TestComponent';
+import TestComponentTwo from '../TestComponentTwo';
+
+
 
 const useStyles = makeStyles(theme => ({
     grow: { // use "root" to have search bar displayed on right
@@ -134,43 +142,74 @@ function SearchBar() {
         </Menu>
     );
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        GWAS Deposition App
+        <Router>
+            <div className={classes.root}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Link to="/">
+                            <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
+                            <Typography className={classes.title} variant="h6" noWrap>
+                                GWAS Deposition App
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
+                        </Link>
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                            />
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                        />
-                    </div>
 
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
-                        <Button className={classes.loginButton} style={{ float: 'right' }}>Login</Button>
-                        <IconButton
-                            edge="end"
-                            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {renderMenu}
+                        <div className={classes.grow} />
+                        <div className={classes.sectionDesktop}>
+                            <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
+                            <Button className={classes.loginButton} style={{ float: 'right' }}>Login</Button>
+                            <IconButton
+                                edge="end"
+                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                {renderMenu}
+
+                <Route exact path="/" component={OnePage} />
+                <Route path="/twoPage" component={TwoPage} />
+            </div>
+        </Router>
+    );
+}
+
+
+function OnePage() {
+    return (
+        <div>
+            {/* <Link to="/" component={<SubmissionsTable />}></Link> */}
+            <div>
+                <Submissions />
+                <li>
+                    <Link to="/twoPage">Two Page</Link>
+                </li>
+            </div>
+        </div>
+    )
+}
+
+function TwoPage() {
+    return (
+        <div>
+            <Link to="/" component={<Submissions />}></Link>
+            <TestComponentTwo />
         </div>
     );
 }
