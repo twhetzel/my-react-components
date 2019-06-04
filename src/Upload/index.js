@@ -86,7 +86,6 @@ class Upload extends Component {
             // await Promise.all(promises);
 
             await Promise.all(promises).then(values => {
-                console.log(values);
                 // Start processing files
                 this.addFilename(values);
                 this.initiateFileValidation(values);
@@ -96,7 +95,8 @@ class Upload extends Component {
 
         } catch (e) {
             // Not Production ready! Do some error handling here instead...
-            this.setState({ successfullUploaded: true, uploading: false });
+            this.setState({ successfullUploaded: false, uploading: false });
+            console.log('** File upload error: ' + e);
         }
     }
 
@@ -150,7 +150,7 @@ class Upload extends Component {
 
 
     addFilename(file) {
-        console.log('** Update submission with filename: ' + file.name);
+        console.log('** Update submission with filename: ' + file);
         this.apiClient = new APIClient();
         this.apiClient.addFilename(file, this.props.sub_id)
     }
