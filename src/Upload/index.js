@@ -4,6 +4,8 @@ import Progress from '../Progress'
 import './upload.css'
 import APIClient from '../apiClient'
 
+const UPLOAD_TEMPLATE_URL = process.env.REACT_APP_TEMPLATE_UPLOAD_API;
+
 class Upload extends Component {
     constructor(props) {
         super(props)
@@ -84,7 +86,6 @@ class Upload extends Component {
             // await Promise.all(promises);
 
             await Promise.all(promises).then(values => {
-                console.log(values);
                 // Start processing files
                 this.addFilename(values);
                 this.initiateFileValidation(values);
@@ -94,7 +95,8 @@ class Upload extends Component {
 
         } catch (e) {
             // Not Production ready! Do some error handling here instead...
-            this.setState({ successfullUploaded: true, uploading: false });
+            this.setState({ successfullUploaded: false, uploading: false });
+            console.log('** File upload error: ' + e);
         }
     }
 
@@ -129,22 +131,26 @@ class Upload extends Component {
             });
 
             const formData = new FormData();
-            formData.append("file", file, file.name);
+            // formData.append("file", file, file.name); // use with TW Flask /upload
+            formData.append("templateFile", file);
+            formData.append("fileName", file.name);
+            formData.append("submissionId", this.props.sub_id);
 
-            console.log("** FormData: ", file.name);
+            console.log("** Upload Filename: ", file.name);
 
             // Post file to Node server.js 
             // req.open("POST", "http://localhost:8000/upload");
 
             // Post file to Flask GWAS Deposition Service app
-            req.open("POST", "http://localhost:5000/uploader");
+            // req.open("POST", "http://localhost:5000/uploader");
+            req.open("POST", UPLOAD_TEMPLATE_URL);
             req.send(formData);
         });
     }
 
 
     addFilename(file) {
-        console.log('** Update submission with filename: ' + file.name);
+        console.log('** Update submission with filename: ' + file);
         this.apiClient = new APIClient();
         this.apiClient.addFilename(file, this.props.sub_id)
     }
