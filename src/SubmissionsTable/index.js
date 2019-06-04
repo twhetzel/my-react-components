@@ -103,6 +103,9 @@ class SubmissionTable extends React.Component {
         const submissionID = Event.currentTarget.getAttribute('data-item');
         console.log('Getting submission details page...', submissionID)
 
+        // Store submissionID to local storage to access on page refresh
+        localStorage.setItem("submissionID", submissionID);
+
         this.setState({
             ...this.state,
             isAddTripState: true,

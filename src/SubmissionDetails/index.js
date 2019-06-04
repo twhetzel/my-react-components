@@ -31,6 +31,7 @@ class SubmissionDetails extends React.Component {
             showComponent: false,
             repos: [],
             submission: [],
+            SID: localStorage.getItem("submissionID"),
         };
     }
 
@@ -38,7 +39,10 @@ class SubmissionDetails extends React.Component {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
         this.apiClient = new APIClient();
-        this.apiClient.getSubmission(this.props.submissionID).then((data) =>
+        // this.apiClient.getSubmission(this.props.submissionID).then((data) =>
+        //     this.setState({ ...this.state, submission: data })
+        // );
+        this.apiClient.getSubmission(this.state.SID).then((data) =>
             this.setState({ ...this.state, submission: data })
         );
     }
@@ -103,7 +107,8 @@ class SubmissionDetails extends React.Component {
         return (
             <div className={styles.root}>
                 <div>
-                    SubmissionID: {this.props.submissionID}
+                    {/* SubmissionID: {this.props.submissionID} */}
+                    SubmissionID:  {this.state.SID}
                 </div>
 
                 <div>
