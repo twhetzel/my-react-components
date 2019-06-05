@@ -7,7 +7,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import APIClient from '../apiClient'
+// import APIClient from '../apiClient'
+import APIClientSubmissions from '../apiClientSubmissions';
 import Container from '@material-ui/core/Container';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -92,7 +93,7 @@ class SubmissionTable extends React.Component {
     async componentDidMount() {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
-        this.apiClient = new APIClient();
+        this.apiClient = new APIClientSubmissions();
         this.apiClient.getSubmissions().then((data) =>
             this.setState({ ...this.state, submissions: data })
         );

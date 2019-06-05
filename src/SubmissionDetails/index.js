@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import APIClient from '../apiClient';
+import APIClientSubmissions from '../apiClientSubmissions';
 
 const styles = theme => ({
     root: {
@@ -38,7 +38,7 @@ class SubmissionDetails extends React.Component {
     async componentDidMount() {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
-        this.apiClient = new APIClient();
+        this.apiClient = new APIClientSubmissions();
         // this.apiClient.getSubmission(this.props.submissionID).then((data) =>
         //     this.setState({ ...this.state, submission: data })
         // );

@@ -10,14 +10,16 @@ class Upload extends Component {
     constructor(props) {
         super(props)
 
-        console.log('**SID: ', this.props.sub_id)
+        // console.log('**SID: ', this.props.sub_id)
+        console.log('**SID: ', localStorage.getItem("submissionID"))
 
         this.state = {
             files: [],
             uploading: false,
             uploadProgress: {},
             successfullUploaded: false,
-            fileStatus: false
+            fileStatus: false,
+            SID: localStorage.getItem("submissionID"),
         };
 
         this.onFilesAdded = this.onFilesAdded.bind(this);
@@ -134,7 +136,7 @@ class Upload extends Component {
             // formData.append("file", file, file.name); // use with TW Flask /upload
             formData.append("templateFile", file);
             formData.append("fileName", file.name);
-            formData.append("submissionId", this.props.sub_id);
+            formData.append("submissionId", this.state.SID);    //this.props.sub_id);
 
             console.log("** Upload Filename: ", file.name);
 
@@ -152,13 +154,13 @@ class Upload extends Component {
     addFilename(file) {
         console.log('** Update submission with filename: ' + file);
         this.apiClient = new APIClient();
-        this.apiClient.addFilename(file, this.props.sub_id)
+        this.apiClient.addFilename(file, this.state.SID)
     }
 
     initiateFileValidation(file) {
         console.log('** Files to process: ' + file);
         this.apiClient = new APIClient();
-        this.apiClient.startFileValidation(file, this.props.sub_id).then((data) =>
+        this.apiClient.startFileValidation(file, this.state.SID).then((data) =>
             this.setState({ ...this.state, fileStatus: data })
         );
     }

@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
-import APIClient from '../apiClient'
+import APIClientSubmissions from '../apiClientSubmissions';
 
 import SubmissionsTable from '../SubmissionsTable';
 import EnhancedTable from '../EnhancedTable';
@@ -33,7 +33,7 @@ class Submissions extends React.Component {
     async componentDidMount() {
         // const accessToken = await this.props.auth.getAccessToken()
         // this.apiClient = new APIClient(accessToken);
-        this.apiClient = new APIClient();
+        this.apiClient = new APIClientSubmissions();
         this.apiClient.getSubmissions().then((data) =>
             this.setState({ ...this.state, submissions: data })
         );
