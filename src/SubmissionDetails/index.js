@@ -71,7 +71,7 @@ class SubmissionDetails extends React.Component {
                                 <TableCell data-title="ID">{row.filename}</TableCell>
                                 <TableCell data-title="IVF">{row.is_valid_format.toString()}</TableCell>
                                 <TableCell data-title="IVD">{row.is_valid_data.toString()}</TableCell>
-                                <TableCell data-title="UserID">{row.user_id}</TableCell>
+                                <TableCell data-title="UserID">{row.user_name}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
