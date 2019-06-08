@@ -115,7 +115,7 @@ class SubmissionTable extends React.Component {
     }
 
     renderRepos = (repos) => {
-        console.log(repos.allSubmissions)
+        // console.log(repos.allSubmissions)
 
         if (!repos) { return [] }
 
