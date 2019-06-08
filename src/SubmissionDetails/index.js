@@ -48,7 +48,7 @@ class SubmissionDetails extends React.Component {
     }
 
     renderRepos = (repos) => {
-        console.log(repos.submission)
+        // console.log(repos.submission)
 
         if (!repos) { return [] }
 
@@ -60,6 +60,7 @@ class SubmissionDetails extends React.Component {
                             <TableCell>PMID</TableCell>
                             <TableCell>Filename</TableCell>
                             <TableCell>File Validation Status</TableCell>
+                            <TableCell>File Validation Message</TableCell>
                             <TableCell>Data Validation Status</TableCell>
                             <TableCell>Curator</TableCell>
                         </TableRow>
@@ -70,6 +71,7 @@ class SubmissionDetails extends React.Component {
                                 <TableCell component="th" scope="row">{row.publication_id}</TableCell>
                                 <TableCell data-title="ID">{row.filename}</TableCell>
                                 <TableCell data-title="IVF">{row.is_valid_format.toString()}</TableCell>
+                                <TableCell data-title="IVM">{row.format_validation_message}</TableCell>
                                 <TableCell data-title="IVD">{row.is_valid_data.toString()}</TableCell>
                                 <TableCell data-title="UserID">{row.user_name}</TableCell>
                             </TableRow>
