@@ -157,13 +157,14 @@ function SearchBar() {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
-                        <Button className={classes.loginButton} style={{ float: 'right' }}>Login</Button>
-                        <IconButton
+                        <Button disabled className={classes.loginButton} style={{ float: 'right', background: 'inherit' }}>Login</Button>
+                        <IconButton disabled
                             edge="end"
                             aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit"
+                            background="inherit"
                         >
                             <AccountCircle />
                         </IconButton>
