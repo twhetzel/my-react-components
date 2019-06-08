@@ -27,6 +27,10 @@ const useStyles = makeStyles(theme => ({
         height: '40',
         width: '40',
     },
+    createSubmissionButton: {
+        color: 'inherit',
+        marginRight: theme.spacing(2),
+    },
     downloadButton: {
         color: 'inherit',
         marginRight: theme.spacing(2),
@@ -116,6 +120,12 @@ function SearchBar() {
         setAnchorEl(null);
     }
 
+    function createSubmission() {
+        // Re-direct to submission form if logged in 
+        // or prompt for login and them re-direct to submission form
+        console.log('** Create submission button clicked')
+    }
+
     function downloadTemplate() {
         apiClient.downloadTemplate();
     }
@@ -156,6 +166,7 @@ function SearchBar() {
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                        <Button onClick={createSubmission} className={classes.createSubmissionButton} style={{ float: 'right' }}>Create Submission</Button>
                         <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
                         <Button disabled className={classes.loginButton} style={{ float: 'right', background: 'inherit' }}>Login</Button>
                         <IconButton disabled
