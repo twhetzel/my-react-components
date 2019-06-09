@@ -12,8 +12,12 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import ReactSVG from 'react-svg'
-
 import APIClient from '../apiClient';
+
+
+// import Link from 'react-router/lib/Link';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import CreateSubmission from '../CreateSubmission';
 
 
 const useStyles = makeStyles(theme => ({
@@ -27,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         height: '40',
         width: '40',
     },
-    createSubmissionButton: {
+    navLinkButton: {
         color: 'inherit',
         marginRight: theme.spacing(2),
     },
@@ -120,16 +124,9 @@ function SearchBar() {
         setAnchorEl(null);
     }
 
-    function createSubmission() {
-        // Re-direct to submission form if logged in 
-        // or prompt for login and them re-direct to submission form
-        console.log('** Create submission button clicked')
-    }
-
     function downloadTemplate() {
         apiClient.downloadTemplate();
     }
-
 
     const renderMenu = (
         <Menu
@@ -147,10 +144,12 @@ function SearchBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        GWAS Deposition App
-                    </Typography>
+                    <Button href="/" className={classes.navLinkButton}>
+                        <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            GWAS Deposition App
+                        </Typography>
+                    </Button>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -166,7 +165,7 @@ function SearchBar() {
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Button onClick={createSubmission} className={classes.createSubmissionButton} style={{ float: 'right' }}>Create Submission</Button>
+                        <Button component={Link} to="/create-submissions" className={classes.navLinkButton}>Create Submissions</Button>
                         <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
                         <Button disabled className={classes.loginButton} style={{ float: 'right', background: 'inherit' }}>Login</Button>
                         <IconButton disabled
@@ -177,7 +176,7 @@ function SearchBar() {
                             color="inherit"
                             background="inherit"
                         >
-                            <AccountCircle />
+                            {/* <AccountCircle /> */}
                         </IconButton>
                     </div>
                 </Toolbar>
