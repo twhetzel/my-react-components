@@ -18,6 +18,13 @@ const theme = createMuiTheme({
             main: '#F0F0F0',
         }
     },
+    props: {
+        // Name of the component ⚛️
+        MuiButtonBase: {
+            // The properties to apply
+            disableRipple: true, // No more ripple, on the whole application 💣!
+        },
+    },
 });
 
 export default theme;

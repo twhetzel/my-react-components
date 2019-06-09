@@ -12,8 +12,12 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import ReactSVG from 'react-svg'
-
 import APIClient from '../apiClient';
+
+
+// import Link from 'react-router/lib/Link';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import CreateSubmission from '../CreateSubmission';
 
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +30,10 @@ const useStyles = makeStyles(theme => ({
         alt: 'GWAS Logo',
         height: '40',
         width: '40',
+    },
+    navLinkButton: {
+        color: 'inherit',
+        marginRight: theme.spacing(2),
     },
     downloadButton: {
         color: 'inherit',
@@ -120,7 +128,6 @@ function SearchBar() {
         apiClient.downloadTemplate();
     }
 
-
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
@@ -137,10 +144,12 @@ function SearchBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        GWAS Deposition App
-                    </Typography>
+                    <Button href="/" className={classes.navLinkButton}>
+                        <ReactSVG src="/images/GWAS_Catalog_banner_logo_34x40.svg" className={classes.logo} />
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            GWAS Deposition App
+                        </Typography>
+                    </Button>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -156,16 +165,18 @@ function SearchBar() {
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+                        <Button component={Link} to="/create-submissions" className={classes.navLinkButton}>Create Submissions</Button>
                         <Button onClick={downloadTemplate} className={classes.downloadButton} style={{ float: 'right' }}>Download Template</Button>
-                        <Button className={classes.loginButton} style={{ float: 'right' }}>Login</Button>
-                        <IconButton
+                        <Button disabled className={classes.loginButton} style={{ float: 'right', background: 'inherit' }}>Login</Button>
+                        <IconButton disabled
                             edge="end"
                             aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit"
+                            background="inherit"
                         >
-                            <AccountCircle />
+                            {/* <AccountCircle /> */}
                         </IconButton>
                     </div>
                 </Toolbar>
