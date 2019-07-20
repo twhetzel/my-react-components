@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URI = process.env.REACT_APP_GDS_BASE_URI;
+// const BASE_URI = process.env.REACT_APP_GDS_BASE_URI;
+const BASE_URI = process.env.REACT_APP_LOCAL_BASE_URI;
 
 const client = axios.create({
     baseURL: BASE_URI,
@@ -12,6 +13,11 @@ class APIClientSubmissions {
     constructor(accessToken) {
         this.accessToken = accessToken;
     }
+
+    // createSubmissions(data) {
+    //     console.log("** Data to submit: " + data.get('pmid') + " -- " + data.get('pub_title'));
+    //     return this.perform('post', '/createSubmissions?pmid=' + data.get('pmid') + '&pub_title=' + data.get('pub_title'));
+    // }
 
     getSubmissions() {
         return this.perform('get', '/submissions');
